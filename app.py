@@ -12,6 +12,8 @@ con = sql.connect(FILENAME)
 C = con.cursor()
 
 # ID set is used to ensure all recipes have unique ID
+# the APP_ID and API_KEY are from Edamam to be able to utilize the API
+
 IDS = {-1}
 APP_ID = '8228a6c6'
 API_KEY = 'bd00528170e470eae3f228cb5bc7a1fc'
@@ -20,11 +22,7 @@ URL = f'https://api.edamam.com/search?/app_id=8228a6c6&app_key=bd00528170e470eae
 
 
 
-"""
-============================================================================
-RECIPE APP:
-============================================================================
-"""
+#RECIPE APP:
 
 @app.route('/')
 @app.route('/home')
@@ -38,12 +36,8 @@ def result():
     print(output)
     Ingredient = output["Ingredient"]
 
+# This enables the user to search for recipes using Edamam API using one ingredient
 def main():
-    """
-    This program allows the user to search for recipes online using the
-    Edamam API. It also allows the user to save lookup info for favorite
-    recipes into a database. Finally, the user can look up saved recipes.
-    """
     print()
     command = ''
     while command.lower() != 'q':
@@ -57,18 +51,10 @@ def main():
             search_my_recipes()
     C.close()
 
-
-"""
-============================================================================
-FIND NEW RECIPES:
-============================================================================
-"""
+#The following function allows the users to search for a new recipe by entering one keyword (ingredient)
 
 @app.route('/ZKHP.html', methods=['GET','POST'])
 def query_recipes():
-    """
-    Search and select recipe to view from API.
-    """
     response = None
     success = False
     index = 0
